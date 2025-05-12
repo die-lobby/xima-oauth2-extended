@@ -114,6 +114,12 @@ class FrontendUserFactory
     {
         // init SlugHelper for this table
         $fieldConfig = $GLOBALS['TCA']['fe_users']['columns']['slug']['config'];
+		// If the slug field is not configured in the TCA for the fe_users table,
+		// it is safe to return early as no slug update is necessary.
+		if (!$fieldConfig) {
+			return;
+		}
+
         /** @var SlugHelper $slugHelper */
         $slugHelper = GeneralUtility::makeInstance(
             SlugHelper::class,
